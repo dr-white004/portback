@@ -27,6 +27,10 @@ class PortfolioListCreateView(generics.ListCreateAPIView):
     serializer_class = PortfolioSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
 class PortfolioDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
